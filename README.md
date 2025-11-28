@@ -1,59 +1,95 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SAM – Official Artist Website
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Официальный сайт молдавского артиста SAM и его музыкального лейбла.
 
-## About Laravel
+## Цель проекта
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Создание современного промо-сайта с возможностями:
+- Прослушивание треков и альбомов
+- Покупка цифровых релизов (в будущем — с корзиной и оплатой)
+- Просмотр и покупка мерча
+- Отслеживание дат и городов тура
+- Связь с менеджером артиста
+- Многоязычная поддержка (в процессе)
+- Панель администратора для управления контентом
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+В дальнейшем планируется:
+- Интеграция Telegram-сообщества
+- Полноценная корзина и онлайн-оплата
+- Личный кабинет слушателя
+- Уведомления о новых релизах и концертах
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Технологии
 
-## Learning Laravel
+- Laravel 11
+- Filament 4 (админ-панель)
+- Laravel Livewire + Alpine.js
+- Tailwind CSS
+- Vite
+- Docker + Apache
+- MySQL
+- Spatie Laravel Translatable (многоязычность)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Установка и запуск (Docker)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Клонирование и базовая настройка
 
-## Laravel Sponsors
+```bash
+git clone <repository_name>
+cd music-website-sam
+```
+### 2. Изменить данные сервера, зависимостей и базы данных при необходимости
+- docker-compose.yml
+- Dockerfile
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# Запуск контейнеров
 
-### Premium Partners
+```bash
+docker-compose up -d --build
+```
+### 3. Настраиваем и устанавливаем необходимые компоненты
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## переходим в контейнер с одного терминала и настраиваем
 
-## Contributing
+```bash
+docker exec -it container_name bash
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+cp .env.example .env
+```
+В файле .env указываем данные актуальной базы данных и другие настройки прмиеняем
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git config --global --add safe.directory /var/www/html
 
-## Security Vulnerabilities
+composer install
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+composer require filament/filament:"^4.0"
+php artisan filament:install --panels
 
-## License
+npm install tailwindcss @tailwindcss/vite
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+php artisan install:api
+
+composer require spatie/laravel-translatable
+```
+
+## переходим в контейнер с другого терминала и запускаем сам сервер
+
+
+```bash
+composer install (or composer update)
+
+npm install
+
+npm run dev
+
+php artisan key:generate
+php artisan storage:link
+php artisan migrate
+```
+Команды для очистки кешов, логов и оптимизации:
+- php artisan config:clear
+- php artisan cache:clear (won't work without existing SQL table)
+- php artisan route:clear
+- php artisan view:clear
