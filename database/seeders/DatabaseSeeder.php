@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             "role" => User::ROLE_ADMIN,
         ]);
 
-        $this->call([AlbumSeeder::class, CategoriesTableSeeder::class, ProductSeeder::class]);
+        $this->call([CategoriesTableSeeder::class, AlbumSeeder::class, ProductSeeder::class]);
     }
     
 }
