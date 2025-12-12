@@ -32,11 +32,11 @@ Route::get("/login", [AuthController::class, "login"])->name("login");
 
 Route::get("/register", [AuthController::class, "register"])->name("register");
 
-Route::get("/logout", [AuthController::class, "logout"])->name("logout");
-
 Route::post("/register", [AuthController::class, "registerPost"])->name("registerPost");
 
 Route::post("/login", [AuthController::class, "loginPost"])->name("loginPost");
+
+Route::get("/logout", [AuthController::class, "logout"])->name("logout");
 
 Route::middleware("auth")->group(function () {
     Route::get("/profile", [ProfileController::class, "index"])->name("profile.index");
