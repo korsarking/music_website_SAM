@@ -1,7 +1,16 @@
 @extends("layout")
 
 @section("main")
-    <div class="max-w-7xl mx-auto p-6 md:p-10" x-data="{ open: false }">
+    <div class="max-w-7xl mx-auto p-6 mt-2 md:p-10" x-data="{ open: false }">
+
+        <a href="{{ url()->previous() }}" class="inline-flex items-center gap-3 px-6 mb-6 sm:px-8 py-3 sm:py-4 bg-white hover:bg-gray-300 text-black font-bold text-lg sm:text-xl rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer max-w-full">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 19l-7-7 7-7"/>
+            </svg>
+            Back
+        </a>
+
 
         <div class="bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-8 md:p-10 border border-neutral-200">
 
@@ -22,52 +31,37 @@
                             {{ $product->name }}
                         </h1>
 
-                        <div class="mt-5">
-                            @if ($product->sale_price)
-                                <div class="flex items-center gap-3">
-                                    <span class="text-3xl font-bold text-red-600">
-                                        {{ $product->sale_price }} MDL
-                                    </span>
-                                    <span class="line-through text-neutral-500 text-xl">
-                                        {{ $product->price }} MDL
-                                    </span>
-                                </div>
-                            @else
-                                <span class="text-3xl font-bold text-neutral-800">
-                                    {{ $product->price }} MDL
-                                </span>
-                            @endif
-                        </div>
-
                         <p class="mt-6 text-neutral-700 text-lg leading-relaxed">
                             {{ $product->description }}
                         </p>
 
-                        <div class="mt-10 flex gap-6">
+                        <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
 
                             <div class="px-5 py-3 bg-neutral-100 rounded-2xl shadow border border-neutral-200 min-w-[160px]">
-                                <div class="text-sm text-neutral-500">Price:</div>
+                                <div class="text-sm text-neutral-500 flex gap-1">
+                                    <x-heroicon-o-banknotes class="w-6 h-6 text-neutral-500" />
+                                    Price:
+                                </div>
                                 <div class="text-xl font-semibold">
-                                    {{ number_format($product->price, 2) }} MDL
+                                    {{ number_format($product->price, 2) }} $
                                 </div>
                             </div>
-
                             <div class="px-5 py-3 bg-neutral-100 rounded-2xl shadow border border-neutral-200 min-w-[160px]">
-                                <div class="text-sm text-neutral-500">Stock:</div>
-                                @if ($product->quantity > 0)
-                                    <div class="text-xl font-semibold text-green-600">{{ $product->quantity }}</div>
-                                @else
-                                    <div class="text-xl font-semibold text-red-600">Out</div>
-                                @endif
+                                <div class="text-sm text-neutral-500 flex gap-1">
+                                    <x-heroicon-o-check-circle class="w-6 h-6 text-neutral-500" />
+                                    Availability:
+                                </div>
+                                    @if ($product->quantity > 0)
+                                        <div class="text-2xl font-bold text-emerald-600">In stock</div>
+                                    @else
+                                        <div class="text-2xl font-bold text-red-600">Out of stock</div>
+                                    @endif
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-10">
-                        <a href="#"
-                        class="w-full block text-center py-3 bg-neutral-900 text-white text-xl rounded-xl shadow hover:bg-gray-700 hover:shadow-lg transition-all">
-                            Add to Cart
-                        </a>
+                    <div class="mt-10 text-center">
+                        <livewire:add-to-cart :productId="$product->id"/>
                     </div>
 
                 </div>
@@ -92,9 +86,7 @@
                         <path d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                 </button>
-
             </div>
         </template>
-
     </div>
 @endsection

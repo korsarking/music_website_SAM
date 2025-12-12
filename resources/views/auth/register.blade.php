@@ -9,11 +9,9 @@
                 </h2>
             </div>
 
-            <form class="mt-8 space-y-6" action="{{ route('registerPost') }}" method="POST">
-                <!-- cross-site request forgery - защита от межсайтовой подделки запроса -->
+            <form class="mt-8 space-y-6" action="{{ route('registerPost') }}" method="POST" novalidate>
                 @csrf 
 
-                <!-- Name -->
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Full Name
@@ -32,7 +30,6 @@
                     @enderror
                 </div>
 
-                <!-- Username -->
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Username
@@ -44,7 +41,7 @@
                             type="text"
                             required
                             value="{{ old('username') }}"
-                            class="pl-10  rounded-lg block w-full px-4 py-3 border @error('username') border-red-500 @else border-gray-300 @enderror placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            class="rounded-lg block w-full px-4 py-3 border @error('username') border-red-500 @else border-gray-300 @enderror placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             placeholder="john_doe"
                         >
                     </div>
@@ -53,7 +50,6 @@
                     @enderror
                 </div>
 
-                <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Email Address
@@ -72,7 +68,6 @@
                     @enderror
                 </div>
 
-                <!-- Password -->
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Password
@@ -90,7 +85,6 @@
                     @enderror
                 </div>
 
-                <!-- Confirm Password -->
                 <div>
                     <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Confirm Password

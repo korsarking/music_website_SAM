@@ -7,7 +7,7 @@
 
         <div class="relative container mx-auto max-w-7xl">
             <div class="text-center mb-12 sm:mb-14 md:mb-16">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-2 sm:mb-4 tracking-tight">
+                <h1 class="text-6xl md:text-7xl font-bold mb-8 tracking-tight">
                     <span class="bg-clip-text text-transparent bg-linear-to-r from-pink-400 to-indigo-400">Albums</span>
                 </h1>
                 <p class="text-base sm:text-lg md:text-xl text-white/60">

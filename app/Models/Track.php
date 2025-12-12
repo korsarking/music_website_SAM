@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Translatable\HasTranslations;
 
 class Track extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
+
+    public array $translatable = ["title"];
 
     protected $fillable = [
         "album_id",
@@ -26,7 +29,7 @@ class Track extends Model
         return $this->belongsTo(Album::class);
     }
 
-    public function getRatingAttribute()
+    public function getRatingAttribute(): float|int
     {
         if ($this->rating_votes === 0) {
             return 0;
@@ -47,7 +50,7 @@ class Track extends Model
 
         static::creating(function ($track) {
             if (empty($track->slug)) {
-                $track->slug = Str::slug($track->title . "-" . uniqid());
+                $track->slug = Str::slug($track->getTranslation("title", "en") . "-" . uniqid());
             }
         });
     }

@@ -28,6 +28,7 @@
 - Vite
 - Docker + Apache
 - MySQL
+- Blade Icons
 - Spatie Laravel Translatable (многоязычность)
 
 ## Установка и запуск (Docker)
@@ -72,7 +73,15 @@ npm install tailwindcss @tailwindcss/vite
 php artisan install:api
 
 composer require spatie/laravel-translatable
+
+composer require cron/cron
 ```
+# cron используется для запланированныз команд (нужно запускать)
+```bash
+sudo service cron status (check if cron is running)
+sudo service cron start
+```
+
 
 ## переходим в контейнер с другого терминала и запускаем сам сервер
 

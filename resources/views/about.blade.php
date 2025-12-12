@@ -5,7 +5,7 @@
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-900/50 to-transparent pointer-events-none"></div>
 
     <div class="container mx-auto px-6 max-w-7xl">
-        <h1 class="text-5xl md:text-7xl font-bold text-center mb-20 text-white tracking-tight">
+        <h1 class="text-6xl md:text-7xl font-bold mb-16 tracking-tight text-center">
             <span class="bg-clip-text text-transparent bg-linear-to-r from-pink-400 to-indigo-400">About SAM</span>
         </h1>
 

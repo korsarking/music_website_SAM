@@ -13,21 +13,24 @@ class SearchController extends Controller
 {
     public function index(Request $req)
     {
-        $query = $req->input("q");
+        $query = mb_strtolower($req->input('q'));
+        $lang  = app()->getLocale();
 
-        $products = Product::where('name', 'LIKE', "%{$query}%")
-            ->get();
-
-        $categories = Category::where('name', 'LIKE', "%{$query}%")
-            ->get();
-            
-        $albums = Album::where('title', 'LIKE', "%{$query}%")
-            ->get();
-        
         return response()->json([
-            'products'   => $products, 
-            'categories' => $categories, 
-            'albums'     => $albums
+            'products' => Product::whereRaw(
+                "LOWER(name->>'$.{$lang}') LIKE ?",
+                ["%{$query}%"]
+            )->get(),
+
+            'categories' => Category::whereRaw(
+                "LOWER(name->>'$.{$lang}') LIKE ?",
+                ["%{$query}%"]
+            )->get(),
+
+            'albums' => Album::whereRaw(
+                "LOWER(title->>'$.{$lang}') LIKE ?",
+                ["%{$query}%"]
+            )->get(),
         ]);
     }
 }

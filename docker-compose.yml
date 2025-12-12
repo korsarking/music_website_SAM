@@ -10,8 +10,6 @@ services:
       - "5173:5173"
     volumes:
       - ./:/var/www/html
-      - ./storage:/var/www/html/storage
-      - ./vendor:/var/www/html/vendor
     depends_on:
       - db
     networks:

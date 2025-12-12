@@ -25,32 +25,32 @@ class AuthController extends Controller
     public function registerPost(RegisterRequest $req)
     {
         $user = User::create([
-                'name' => $req->name,
-                'username' => $req->username ?? Str::slug($req->name) . '-' . Str::random(4),
-                'email' => $req->email,
-                'password' => Hash::make($req->password),
-                'country' => $req->country,
-                'role' => 0,
+                "name" => $req->name,
+                "username" => $req->username ?? Str::slug($req->name) . "-" . Str::random(4),
+                "email" => $req->email,
+                "password" => Hash::make($req->password),
+                "country" => $req->country,
+                "role" => 0,
             ]);
 
         Auth::login($user);
 
-        return redirect()->route('home');
+        return redirect()->route("home");
     }
     
     public function loginPost(LoginRequest $request)
     {
-        $credentials = $request->only('login', 'password');
-        $field = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $credentials = $request->only("login", "password");
+        $field = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? "email" : "username";
 
-        if (Auth::attempt([$field => $credentials['login'], 'password' => $credentials['password']], $request->filled('remember'))) {
+        if (Auth::attempt([$field => $credentials["login"], "password" => $credentials["password"]], $request->filled("remember"))) {
             $request->session()->regenerate();
-            return redirect()->intended(route('home'));
+            return redirect()->intended(route(name: "home"));
         }
 
         return back()->withErrors([
-            'login' => 'Invalid credentials. Username or password is incorrect.',
-        ])->onlyInput('login');
+            "login" => "Invalid credentials. Username or password is incorrect.",
+        ])->onlyInput("login");
     }
 
     public function logout(Request $req)
@@ -60,6 +60,6 @@ class AuthController extends Controller
         $req->session()->invalidate();
         $req->session()->regenerateToken();
 
-        return redirect()->route('home');
+        return redirect()->route("home");
     }
 }

@@ -9,27 +9,29 @@
             <div class="swiper recommendedSwiper">
                 <div class="swiper-wrapper">
                     @foreach($recommendedProducts as $product)
-                        <div class="swiper-slide">
-                            <a href="{{ route('show-product', $product->slug) }}"
-                               class="group block bg-white rounded-2xl shadow-2xl hover:shadow-3xl overflow-hidden border border-white/20 transition-all duration-500">
+                        @if ($product->category_id !== 11)
+                            <div class="swiper-slide">
+                                <a href="{{ route('show-product', $product->slug) }}"
+                                class="group block bg-white rounded-2xl shadow-2xl hover:shadow-3xl overflow-hidden border border-white/20 transition-all duration-500">
 
-                                <div class="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
-                                    <img src="{{ asset('storage/products/' . $product->image) }}"
-                                         alt="{{ $product->name }}"
-                                         class="absolute inset-0 w-full h-full object-contain p-8 transition-transform duration-700 group-hover:scale-110">
-                                </div>
+                                    <div class="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                                        <img src="{{ asset('storage/products/' . $product->image) }}"
+                                            alt="{{ $product->name }}"
+                                            class="absolute inset-0 w-full h-full object-contain p-8 transition-transform duration-700 group-hover:scale-110">
+                                    </div>
 
-                                <div class="p-8 bg-white/80 text-center flex flex-col items-center">
-                                    <h3 class="font-bold text-lg text-gray-900 leading-tight line-clamp-2">
-                                        {{ $product->name }}
-                                    </h3>
-                                    <p class="text-2xl font-bold text-gray-900 mt-4">
-                                        {{ $product->price }} MDL
-                                    </p>
-                                </div>
+                                    <div class="p-8 bg-white/80 text-center flex flex-col items-center">
+                                        <h3 class="font-bold text-lg text-gray-900 leading-tight line-clamp-2">
+                                            {{ $product->name }}
+                                        </h3>
+                                        <p class="text-2xl font-bold text-gray-900 mt-4">
+                                            {{ $product->price }} $
+                                        </p>
+                                    </div>
 
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @endif
                     @endforeach
                 </div>
 
@@ -96,7 +98,7 @@
                 @forelse($albums as $album)
                     <a href="{{ route('album-viewer', $album->slug_album) }}"
                        wire:navigate
-                       class="group relative block rounded-2xl overflow-hidden bg-white/5 backdrop-blur-xl 
+                       class="h-96 group relative block rounded-2xl overflow-hidden bg-white/5 backdrop-blur-xl 
                               border border-white/10 shadow-2xl transition-all duration-500 
                               hover:border-indigo-500/50 hover:shadow-indigo-500/20 hover:-translate-y-3">
 
@@ -109,23 +111,22 @@
                                         opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
 
-                        <div class="p-5 bg-white/80 flex flex-col justify-between">
-                            <h3 class="font-bold text-lg text-gray-900 line-clamp-2 leading-tight">
+                        <div class="h-28 absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white via-white to-white/90">
+                            <h3 class="font-bold text-lg text-gray-900 line-clamp-2 leading-tight text-center">
                                 {{ $album->title }}
                             </h3>
 
-                            <p class="text-indigo-600 font-bold text-2xl mt-4">
+                            <p class="absolute bottom-0 inset-x-0 text-indigo-600 font-bold text-2xl mt-2 text-center">
                                 {{ $album->released_at?->format('Y') ?? 'Soon' }}
                             </p>
                         </div>
 
-                        <div class="absolute inset-0 rounded-2xl ring-0 ring-indigo-500/0
-                                    group-hover:ring-8 group-hover:ring-indigo-500/30
-                                    transition-all duration-500 pointer-events-none"></div>
+                        <div class="absolute inset-0 rounded-2xl ring-0 ring-indigo-500/0 group-hover:ring-8 group-hover:ring-indigo-500/30 transition-all duration-500 pointer-events-none">
+                        </div>
                     </a>
                 @empty
-                    <div class="col-span-full text-center py-20">
-                        <p class="text-3xl text-white/40">No music releases yet.</p>
+                    <div class="col-span-full text-center py-32">
+                        <p class="text-4xl text-white/40">No music releases yet.</p>
                     </div>
                 @endforelse
             </div>

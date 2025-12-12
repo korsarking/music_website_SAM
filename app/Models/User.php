@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthentication;
 use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthenticationRecovery;
 use Filament\Models\Contracts\FilamentUser;
@@ -21,20 +22,17 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
 
     public function getAppAuthenticationSecret(): ?string
     {
-    
         return $this->app_authentication_secret;
     }
 
     public function saveAppAuthenticationSecret(?string $secret): void
     {
-    
         $this->app_authentication_secret = $secret;
         $this->save();
     }
 
     public function getAppAuthenticationHolderName(): string
     {
-    
         return $this->email;
     }
 
@@ -43,7 +41,6 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
      */
     public function getAppAuthenticationRecoveryCodes(): ?array
     {
-    
         return $this->app_authentication_recovery_codes;
     }
 
@@ -52,7 +49,6 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
      */
     public function saveAppAuthenticationRecoveryCodes(?array $codes): void
     {
-    
         $this->app_authentication_recovery_codes = $codes;
         $this->save();
     }
@@ -95,7 +91,7 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
 
     public function setRoleAttribute($value)
     {
-        $this->attribute["role"] = $value ?? 0;
+        $this->attributes["role"] = $value ?? self::ROLE_USER;
     }
 
     public function getAvatarUrlAttribute()
@@ -105,5 +101,22 @@ class User extends Authenticatable implements FilamentUser, HasAppAuthentication
             return asset("storage/avatars/" . $this->avatar_slug);
         }
         return "https://ui-avatars.com/api/?name=" . urlencode($this->username) . "&background=6366f1&color=fff&size=256";
+    }
+
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function activeCart()
+    {
+        return $this->carts()->where("status", "active");
+    }
+
+    public function getOrCreateActiveCart(): Cart
+    {
+        return $this->carts()->firstOrCreate([
+            "status" => "active"
+        ]);
     }
 }

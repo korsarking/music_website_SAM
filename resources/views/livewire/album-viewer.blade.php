@@ -1,12 +1,19 @@
+
 @extends("layout")
 
-@section("content")
-    <div class="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-gray-100 py-12">
+
+@section("main")
+    <div class="min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900 text-gray-100 py-12 mt-6">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="flex flex-col md:flex-row gap-10 bg-gray-800/60 p-6 sm:p-8 rounded-2xl shadow-2xl backdrop-blur-md border border-gray-700/50">
-                <img src="{{ asset('storage/albums/' . $album->path_image) }}"
-                    class="w-48 h-48 sm:w-64 sm:h-64 object-cover rounded-xl shadow-xl border-4 border-gray-800 mx-auto md:mx-0">
+                <div class="flex flex-col gap-8 items-center">
+                    <img src="{{ asset('storage/albums/' . $album->path_image) }}"
+                            class="w-48 h-48 sm:w-64 sm:h-64 object-cover rounded-xl shadow-xl border-4 border-gray-800 mx-auto md:mx-0">
+                    <p class="text-4xl text-white font-bold px-4 py-1 rounded-lg text-center">
+                        {{ $album->product->price }} $
+                    </p>
+                </div>    
 
                 <div class="flex-1 flex flex-col justify-between">
                     <div>
@@ -24,11 +31,7 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-4 mt-8">
-                        <a href="#"
-                        class="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-400 hover:to-emerald-400 
-                                rounded-xl font-bold text-white shadow-lg transform hover:scale-105 transition flex items-center justify-center gap-3 cursor-pointer">
-                            Buy Now
-                        </a>
+                        <livewire:add-to-cart :productId="$album->product->id" />
                     </div>
                 </div>
             </div>
@@ -37,6 +40,10 @@
                 <h2 class="text-2xl sm:text-3xl font-bold mb-8 text-white">Tracks</h2>
 
                 @forelse($album->tracks as $index => $track)
+                    @php
+                        $minutes = floor($track->duration / 60);
+                        $seconds = $track->duration % 60;
+                    @endphp
                     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 py-5 border-b border-gray-700/50 last:border-0 hover:bg-white/5 rounded-lg transition">
 
                         <div class="flex items-center gap-6">
@@ -46,7 +53,9 @@
                                 <h3 class="text-lg sm:text-xl font-semibold text-white break-words">{{ $track->title }}</h3>
 
                                 <div class="flex flex-wrap items-center gap-4 mt-1">
-                                    <span class="text-sm text-gray-400">{{ $track->duration }} sec</span>
+                                    <span class="text-sm text-gray-400">
+                                        {{ $minutes }}:{{ str_pad($seconds, 2, '0',STR_PAD_LEFT) }}
+                                    </span>
                                     <livewire:track-rating-component :track="$track" :key="$track->id" />
                                 </div>
                             </div>
@@ -59,15 +68,10 @@
                                     title: '{{ addslashes($track->title) }}',
                                     url: '{{ asset('storage/tracks/' . $track->audio_url) }}'
                                 })"
-                                class="flex-1 md:flex-none px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 
+                                class="flex-1 md:flex-none px-8 py-3 mr-6 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 
                                     rounded-lg font-bold text-white shadow-lg transition transform hover:scale-105 cursor-pointer text-center">
                                 Play Preview
                             </button>
-
-                            <a href="#" 
-                                class="flex-1 md:flex-none px-6 py-3 bg-emerald-600 hover:bg-emerald-500 rounded-lg font-bold transition hover:scale-105 text-center">
-                                Buy
-                            </a>
                         </div>
                     </div>
                 @empty

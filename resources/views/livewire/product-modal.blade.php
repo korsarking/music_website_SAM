@@ -2,6 +2,7 @@
 
     <div x-show="open"
          x-transition.opacity
+         @click.self="open = false"
          class="fixed inset-0 bg-black/70 backdrop-blur-sm z-9999 flex items-center justify-center">
 
         <div x-show="open"
@@ -25,38 +26,40 @@
                          class="max-h-full max-w-full object-contain">
                 </div>
 
-                <h2 class="text-3xl font-bold mt-5">{{ $product->name }}</h2>
+                <h2 class="text-3xl font-bold mt-5 flex items-center justify-center">{{ $product->name }}</h2>
 
-                <p class="text-neutral-400 mt-3 leading-relaxed">
+                <p class="text-neutral-400 mt-3 leading-relaxed flex items-center justify-center">
                     {{ $product->description }}
                 </p>
 
-                <div class="flex items-center justify-between mt-6">
-
-                    <div class="px-4 py-2 bg-neutral-800 rounded-2xl border border-neutral-700 flex justify-between gap-3 min-w-[140px]">
-                        <span class="font-bold text-neutral-300">Price:</span>
-                        <span class="font-semibold">
-                            {{ number_format($product->price, 2) }} MDL
+                <div class="space-y-4 mt-8">
+                    <div class="flex items-center justify-between px-6 py-5 bg-neutral-800/80 backdrop-blur-sm rounded-2xl border border-neutral-700">
+                        <span class="text-neutral-400 font-medium text-lg flex gap-2 justify-center items-center">
+                            <x-heroicon-o-banknotes class="w-6 h-6 text-neutral-500" />
+                            Price
+                        </span>
+                        <span class="text-xl font-bold text-white">
+                            {{ number_format($product->price, 2) }} $
                         </span>
                     </div>
 
-                    <div class="px-4 py-2 bg-neutral-800 rounded-2xl border border-neutral-700 flex justify-between gap-3 min-w-[140px]">
-                        <span class="font-bold text-neutral-300">Stock:</span>
-                        @if ($product->quantity > 0)
-                            <span class="text-green-400 font-semibold">{{ $product->quantity }}</span>
-                        @else
-                            <span class="text-red-400 font-semibold">0</span>
-                        @endif
+                    <div class="flex items-center justify-between px-6 py-5 bg-neutral-800/80 backdrop-blur-sm rounded-2xl border border-neutral-700">
+                        <span class="text-neutral-400 font-medium text-lg flex gap-2 justify-center items-center">
+                            <x-heroicon-o-check-circle class="w-6 h-6 text-neutral-500" />
+                            Availability
+                        </span>
+                        <span class="@if($product->quantity > 0) text-emerald-400 @else text-red-400 @endif font-bold text-xl">
+                            @if($product->quantity > 0)
+                                In Stock
+                            @else
+                                Out of Stock
+                            @endif
+                        </span>
                     </div>
-
                 </div>
-
-                <button
-                    class="w-full flex items-center justify-center gap-2 mt-8 py-3 bg-blue-400 hover:bg-blue-500 text-black font-semibold rounded-xl cursor-pointer text-3xl">
-                    <x-bi-plus-square class="h-5 w-5 text-3xl" />
-                    Add to Cart
-                </button>
-
+                <div class="mt-5 flex items-center justify-center">
+                    <livewire:add-to-cart :productId="$product->id" />
+                </div>
             @endif
         </div>
     </div>

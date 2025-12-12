@@ -3,7 +3,11 @@
 @section("main")
     <div class="relative min-h-screen py-16 md:py-24">
         <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-10 md:mb-12 text-center">My Profile</h1>
+            <h2 class="text-5xl md:text-6xl font-bold tracking-tight text-center p-2 mb-6">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400">
+                    My Profile
+                </span>
+            </h2>
 
             @if(session("success"))
                 <div class="mb-8 p-4 bg-green-900/50 border border-green-500/50 text-green-200 rounded-xl text-center">

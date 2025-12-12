@@ -15,7 +15,10 @@ class AlbumController extends Controller
 
     public function show($slug)
     {
-        $album = Album::where("slug_album", $slug)->with("tracks")->firstOrFail();
+        $album = Album::where("slug_album", $slug)
+            ->with("tracks")
+            ->with("product")
+            ->firstOrFail();
 
          return view("livewire.album-viewer", compact("album"));
     }

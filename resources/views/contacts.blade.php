@@ -3,7 +3,7 @@
 @section('main')
 <div class="relative py-24">
     <div class="container mx-auto px-6 max-w-7xl">
-        <h1 class="text-5xl md:text-7xl font-bold text-center mb-20 text-white">
+        <h1 class="text-6xl md:text-7xl font-bold mb-16 tracking-tight text-center">
             <span class="bg-clip-text text-transparent bg-linear-to-r from-pink-400 to-indigo-400">Contacts</span>
         </h1>
 

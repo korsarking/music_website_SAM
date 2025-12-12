@@ -12,10 +12,9 @@
                 </p>
             </div>
 
-            <form class="mt-8 space-y-6" action="{{ route('loginPost') }}" method="POST">
+            <form class="mt-8 space-y-6" action="{{ route('loginPost') }}" method="POST" novalidate>
                 @csrf
 
-                <!-- Login (email or username) -->
                 <div>
                     <label for="login" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Email or Username
@@ -28,14 +27,12 @@
                         required
                         value="{{ old('login') }}"
                         class="mt-1 rounded-lg block w-full px-4 py-3 border @error('login') border-red-500 @else border-gray-300 @enderror placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="john@example.com or john_doe"
-                    >
+                        placeholder="john@example.com or john_doe">
                     @error('login')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <!-- Password -->
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         Password
@@ -47,8 +44,7 @@
                         autocomplete="current-password"
                         required
                         class="mt-1 rounded-lg block w-full px-4 py-3 border @error('password') border-red-500 @else border-gray-300 @enderror placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="••••••••"
-                    >
+                        placeholder="••••••••">
                     @error('password')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -60,12 +56,6 @@
                         <label for="remember" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
                             Remember me
                         </label>
-                    </div>
-
-                    <div class="text-sm">
-                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                            Forgot your password?
-                        </a>
                     </div>
                 </div>
 

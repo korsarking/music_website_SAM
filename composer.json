@@ -7,6 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "cron/cron": "^1.9",
         "davidhsianturi/blade-bootstrap-icons": "^2.1",
         "filament/filament": "4.0",
         "laravel/framework": "^12.0",

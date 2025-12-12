@@ -1,24 +1,18 @@
-<div x-data="{ open: false }" class="relative">
+<div x-data="{ open: false }" class="relative h-10">
     @auth
         <div class="hidden sm:flex items-center">
             <button
                 @click="open = !open"
                 class="flex items-center space-x-3 text-sm font-medium text-white hover:text-indigo-400 transition cursor-pointer">
-                <img src="{{ $user->avatar_url }}" alt="{{ $user->username }}" class="w-9 h-9 rounded-full ring-2 ring-indigo-500">
-                <span>{{ $user->username }}</span>
+                <img src="{{ $user->avatar_url }}" alt="{{ $user->username }}" class="w-9 h-9 rounded-full ring-2 ring-indigo-500 object-cover">
+                <span class="goblin-one-regular">{{ $user->username }}</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
-        </div>
-
-        <div class="flex sm:hidden items-center">
-            <button
-                @click="open = !open"
-                class="flex items-center space-x-3 text-sm font-medium text-white hover:text-indigo-400 transition cursor-pointer">
-                <img src="{{ $user->avatar_url }}" alt="{{ $user->username }}" class="w-9 h-9 rounded-full ring-2 ring-indigo-500">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    <path
+                        :d="open ? 'M5 15l7-7 7 7' : 'M19 9l-7 7-7-7'"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                    />
                 </svg>
             </button>
         </div>
@@ -27,12 +21,11 @@
             x-show="open"
             x-transition
             @click.away="open = false"
-            class="hidden sm:block absolute right-0 mt-2 w-56 rounded-lg shadow-2xl bg-gray-900 border border-white/10 z-50"
-        >
+            class="hidden sm:block absolute right-0 mt-2 w-56 rounded-lg shadow-2xl bg-gray-900 border border-white/10 z-50">
             <div class="py-2">
                 <a href="{{ route('profile.index') }}" wire:navigate class="block px-4 py-3 text-white/90 hover:bg-white/10 transition">
                     My Profile
-                </a>
+                    </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" wire:click.prevent="logout"
@@ -47,8 +40,7 @@
             x-show="open"
             x-transition
             @click.away="open = false"
-            class="sm:hidden absolute right-0 mt-2 w-56 rounded-lg shadow-2xl bg-gray-900 border border-white/10 z-50"
-        >
+            class="sm:hidden absolute right-0 mt-2 w-56 rounded-lg shadow-2xl bg-gray-900 border border-white/10 z-50">
             <div class="py-2">
                 <a href="{{ route('profile.index') }}" wire:navigate class="block px-4 py-3 text-white/90 hover:bg-white/10 transition">
                     My Profile
@@ -65,7 +57,7 @@
     @endauth
 
     @guest
-        <div class="space-x-4 text-white">
+        <div class="space-x-4 text-white relative flex items-center justify-center">
             <a href="{{ route('login') }}" wire:navigate class="hover:text-indigo-400 transition">Sign In</a>
             <a href="{{ route('register') }}" wire:navigate
                 class="px-7 py-2.5 bg-indigo-500 hover:bg-indigo-400 rounded-full transition font-semibold shadow-lg">

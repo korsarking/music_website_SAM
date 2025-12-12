@@ -45,7 +45,7 @@ class UsersTable
             ])
             ->filters([
                 Filter::make('is_admin')
-                    ->query(fn (Builder $query) => $query->where('role', true)),
+                    ->query(callback: fn (Builder $query) => $query->where('role', true)),
             ])
             ->recordActions([
                 EditAction::make()

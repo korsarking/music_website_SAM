@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Website of SAM artist">
     <meta name="keywords" content="SAM, Artist, Moldova">
-    <link rel="shortcut icon" href="public\logo\logo.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset("logo/logo.svg") }}" type="image/x-icon">
     <title>SAM - voice of generation</title>
     <i></i>
 
@@ -23,15 +23,20 @@
     @livewire("nav")
 
     <main class="min-h-screen pt-14 md:pt-18">
-        @yield("main")
-        @yield("content")
+        @hasSection("main")
+            @yield("main")
+        @else
+            {{ $slot ?? "" }}
+        @endif
     </main>
 
     @livewire("footer")
 
-    @livewireScripts
+    @include("components.notify")
     
     @livewire("product-modal")
+    
+    @livewireScripts
 
 </body>
 </html>

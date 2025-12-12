@@ -15,7 +15,7 @@
                 <h4 class="text-xl font-semibold text-white mb-5 tracking-wide">Navigation</h4>
                 <ul class="space-y-3 text-base">
                     <li><a href="{{ route('album-list') }}" wire:navigate class="hover:text-cyan-400 transition">Music</a></li>
-                    <li><a href="#" wire:navigate class="hover:text-cyan-400 transition">Tour</a></li>
+                    <li><a href="{{ route('tour') }}" wire:navigate class="hover:text-cyan-400 transition">Tour</a></li>
                     <li><a href="{{ route('store') }}" wire:navigate class="hover:text-cyan-400 transition">Store</a></li>
                     <li><a href="{{ route('about') }}" wire:navigate class="hover:text-cyan-400 transition">About</a></li>
                     <li><a href="{{ route('contacts') }}" wire:navigate class="hover:text-cyan-400 transition">Contacts</a></li>
