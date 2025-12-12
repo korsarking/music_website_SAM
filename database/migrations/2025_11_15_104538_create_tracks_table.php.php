@@ -11,12 +11,13 @@ return new class extends Migration
         Schema::create("tracks", function (Blueprint $table) {
             $table->id();
             $table->foreignId("album_id")->nullable()->constrained()->nullOnDelete();
-            $table->string("title", 50);
-            $table->string("slug_track")->nullable();
-            $table->integer("duration")->nullable();
+            $table->json("title");
+            $table->string("slug_track")->unique()->nullable();
+            $table->unsignedInteger("duration")->nullable();
             $table->string("audio_url")->nullable();
             $table->unsignedInteger("rating_votes")->default(0);
             $table->unsignedInteger("rating_total")->default(0);
+            $table->index("album_id");
             $table->timestamps();
         });
     }
