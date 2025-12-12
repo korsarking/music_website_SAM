@@ -18,14 +18,16 @@ class AlbumForm
                 Section::make('Basic info')
                 ->columns(2)
                 ->schema([
-                    TextInput::make('title')
-                        ->label('Album name')
+                    TextInput::make('title.en')
+                        ->label('Title (EN)')
                         ->required()
-                        ->maxLength(255)
-                        ->live(onBlur: true)
                         ->afterStateUpdated(fn ($state, $set) => 
                             filled($state) ? $set('slug_album', \Str::slug($state)) : null
                         ),
+
+                    TextInput::make('title.ru')
+                        ->label('Title (RU)')
+                        ->required(),
 
                     TextInput::make('slug_album')
                         ->label('Slug parametre')
@@ -62,11 +64,11 @@ class AlbumForm
             Section::make('Description')
                 ->collapsible()
                 ->schema([
-                    Textarea::make('description')
-                        ->label('album description')
-                        ->rows(6)
-                        ->maxLength(2000)
-                        ->placeholder('Brief description, highlights, participants, etc.'),
+                Textarea::make('description.en')
+                    ->label('Description (EN)'),
+
+                Textarea::make('description.ru')
+                    ->label('Description (RU)'),                
                 ]),
         ]);
     }
