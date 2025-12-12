@@ -14,9 +14,12 @@ class TrackFactory extends Factory
     {
         return [
             "album_id"     => null,
-            "title"        => $this->faker->sentence(2),
+            "title" => [
+                'en' => $this->faker->sentence(2),
+                'ru' => $this->faker->sentence(2),
+            ],
             "duration"     => $this->faker->numberBetween(120, 420),
-            "audio_url"    => "tracks/lonely_day.flac",
+            "audio_url"    => "lonely_day.flac",
             "slug_track"    => uniqid(),
             "rating_votes" => 0,
             "rating_total" => 0,
