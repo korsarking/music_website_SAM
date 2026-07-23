@@ -76,7 +76,7 @@ composer require spatie/laravel-translatable
 
 composer require cron/cron
 ```
-# cron используется для запланированныз команд (нужно запускать)
+# cron используется для запланированных команд (нужно запускать)
 ```bash
 sudo service cron status (check if cron is running)
 sudo service cron start
